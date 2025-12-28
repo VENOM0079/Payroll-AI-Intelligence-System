@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">Welcome to Payroll System</h1>
+            <p class="lead">Complete payroll management with facial recognition attendance tracking.</p>
+            <hr class="my-4">
+            <p>Get started by setting up your staff and configuring the system.</p>
+            <a class="btn btn-primary btn-lg" href="/dashboard" role="button">View Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">👥 Staff Management</h5>
+                <p class="card-text">Add and manage employees</p>
+                <a href="/staff" class="btn btn-outline-primary">Manage Staff</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">📊 Attendance</h5>
+                <p class="card-text">View attendance records</p>
+                <a href="/attendance" class="btn btn-outline-info">View Attendance</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">💰 Payroll</h5>
+                <p class="card-text">Generate and view payroll</p>
+                <a href="/payroll" class="btn btn-outline-success">Manage Payroll</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

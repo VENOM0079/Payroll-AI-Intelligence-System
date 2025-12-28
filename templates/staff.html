@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Staff Management</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Add New Staff Member</h5>
+    </div>
+    <div class="card-body">
+        <form id="addStaffForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Employee ID" name="employee_id" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Full Name" name="name" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Department" name="department" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="Position" name="position" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Salary" name="salary" step="0.01" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Add Staff</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Current Staff ({{ staff_members|length }})</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff in staff_members %}
+                <tr>
+                    <td>{{ staff[1] }}</td>
+                    <td>{{ staff[2] }}</td>
+                    <td>{{ staff[3] }}</td>
+                    <td>{{ staff[4] }}</td>
+                    <td>${{ "%.2f"|format(staff[5]) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+document.getElementById('addStaffForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    fetch('/api/staff', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Staff added successfully!');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    });
+});
+</script>
+{% endblock %}
